@@ -66,6 +66,10 @@
               "target": "Package",
               "version": "[8.0.*, )"
             },
+            "Microsoft.AspNetCore.Mvc.Versioning": {
+              "target": "Package",
+              "version": "[5.1.0, )"
+            },
             "Microsoft.AspNetCore.OpenApi": {
               "target": "Package",
               "version": "[8.0.22, )"
@@ -80,6 +84,10 @@
               "target": "Package",
               "version": "[8.0.*, )"
             },
+            "Microsoft.Extensions.Diagnostics.HealthChecks.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[8.0.13, )"
+            },
             "Microsoft.NET.Test.Sdk": {
               "target": "Package",
               "version": "[17.12.0, )"
@@ -87,6 +95,14 @@
             "NSubstitute": {
               "target": "Package",
               "version": "[5.3.0, )"
+            },
+            "Serilog.AspNetCore": {
+              "target": "Package",
+              "version": "[10.0.0, )"
+            },
+            "Serilog.Sinks.Console": {
+              "target": "Package",
+              "version": "[6.1.1, )"
             },
             "Swashbuckle.AspNetCore": {
               "target": "Package",

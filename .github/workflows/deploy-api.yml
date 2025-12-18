@@ -1,9 +1,12 @@
-name: Deploy Case Management API
+# Pipeline defintion for Lint+Build+Test+Deploy* stages for PRs and Merges on "main"
+# Only Deploy stage on successful merge INTO MAIN
+name: CI/CD - Case Management API
 
 on:
   push:
-    branches:
-      - main
+    branches: [main]
+  pull_request:
+    branches: [main]
 
 permissions:
   id-token: write
@@ -18,29 +21,51 @@ env:
   RESOURCE_GROUP: case-management-rg
   DOTNET_VERSION: "8.0.x"
 
+# Pipeline job
 jobs:
-  build-and-deploy:
+  lint-build-test-deploy:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repo
+      - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Setup .NET
+      - name: Setup .NET SDK
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: ${{ env.DOTNET_VERSION }}
 
+      # -------------------
+      # LINT STAGE
+      # -------------------
       - name: Restore dependencies
         run: dotnet restore
 
+      - name: Lint (dotnet format)
+        run: dotnet format --verify-no-changes
+        continue-on-error: false
+
+      # -------------------
+      # BUILD STAGE
+      # -------------------
       - name: Build
         run: dotnet build --configuration Release --no-restore
 
+      # -------------------
+      # TEST STAGE
+      # -------------------
+      - name: Run tests
+        run: dotnet test --configuration Release --no-build --verbosity normal
+
+      # -------------------
+      # DEPLOY STAGE
+      # -------------------
       - name: Publish
+        if: github.ref == 'refs/heads/main'
         run: dotnet publish CaseManagement.Api/CaseManagement.Api.csproj -c Release -o publish
 
-      - name: Azure Login (OIDC)
+      - name: Azure Login (OIDC Standard)
+        if: github.ref == 'refs/heads/main'
         uses: azure/login@v2
         with:
           client-id: ${{ env.AZURE_CLIENT_ID }}
@@ -48,6 +73,7 @@ jobs:
           subscription-id: ${{ env.AZURE_SUBSCRIPTION_ID }}
 
       - name: Deploy to Azure App Service
+        if: github.ref == 'refs/heads/main'
         uses: azure/webapps-deploy@v3
         with:
           app-name: ${{ env.APP_NAME }}

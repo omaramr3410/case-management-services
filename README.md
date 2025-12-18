@@ -1,6 +1,8 @@
 # case-management-services
 
-Backend Project for CMS, programmed in .NET 7
+Backend Project for CMS, programmed in .NET 8
+
+![CI/CD](https://github.com/omaramr3410/case-management-services/actions/workflows/deploy-api.yml/badge.svg)
 
 flowchart TB
 Client[Frontend / API Consumer]

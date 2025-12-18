@@ -1,0 +1,75 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\sonic\\Documents\\Repos\\case-management-services\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{1C8DF8EF-B7FE-4371-95B9-4AC7D2AEC925}|CaseManagement.Api\\CaseManagement.Api.csproj|c:\\users\\sonic\\documents\\repos\\case-management-services\\casemanagement.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1C8DF8EF-B7FE-4371-95B9-4AC7D2AEC925}|CaseManagement.Api\\CaseManagement.Api.csproj|solutionrelative:casemanagement.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C8DF8EF-B7FE-4371-95B9-4AC7D2AEC925}|CaseManagement.Api\\CaseManagement.Api.csproj|c:\\users\\sonic\\documents\\repos\\case-management-services\\casemanagement.api\\controllers\\clientscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1C8DF8EF-B7FE-4371-95B9-4AC7D2AEC925}|CaseManagement.Api\\CaseManagement.Api.csproj|solutionrelative:casemanagement.api\\controllers\\clientscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C8DF8EF-B7FE-4371-95B9-4AC7D2AEC925}|CaseManagement.Api\\CaseManagement.Api.csproj|c:\\users\\sonic\\documents\\repos\\case-management-services\\casemanagement.api\\casemanagement.api.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{1C8DF8EF-B7FE-4371-95B9-4AC7D2AEC925}|CaseManagement.Api\\CaseManagement.Api.csproj|solutionrelative:casemanagement.api\\casemanagement.api.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 3,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "ClientsController.cs",
+              "DocumentMoniker": "C:\\Users\\sonic\\Documents\\Repos\\case-management-services\\CaseManagement.Api\\Controllers\\ClientsController.cs",
+              "RelativeDocumentMoniker": "CaseManagement.Api\\Controllers\\ClientsController.cs",
+              "ToolTip": "C:\\Users\\sonic\\Documents\\Repos\\case-management-services\\CaseManagement.Api\\Controllers\\ClientsController.cs",
+              "RelativeToolTip": "CaseManagement.Api\\Controllers\\ClientsController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABgAAAA0AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-18T21:38:49.862Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "CaseManagement.Api",
+              "DocumentMoniker": "C:\\Users\\sonic\\Documents\\Repos\\case-management-services\\CaseManagement.Api\\CaseManagement.Api.csproj",
+              "RelativeDocumentMoniker": "CaseManagement.Api\\CaseManagement.Api.csproj",
+              "ToolTip": "C:\\Users\\sonic\\Documents\\Repos\\case-management-services\\CaseManagement.Api\\CaseManagement.Api.csproj",
+              "RelativeToolTip": "CaseManagement.Api\\CaseManagement.Api.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACcAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2025-12-18T21:14:59.896Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\sonic\\Documents\\Repos\\case-management-services\\CaseManagement.Api\\Program.cs",
+              "RelativeDocumentMoniker": "CaseManagement.Api\\Program.cs",
+              "ToolTip": "C:\\Users\\sonic\\Documents\\Repos\\case-management-services\\CaseManagement.Api\\Program.cs",
+              "RelativeToolTip": "CaseManagement.Api\\Program.cs",
+              "ViewState": "AgIAAIQAAAAAAAAAAAAAAKsAAAAqAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-18T21:13:13.734Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
