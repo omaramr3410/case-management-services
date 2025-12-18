@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("CaseManagement.Api")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+4a1cc0df9bbbfbcb8c0157ce8e2bcaeb9844af9b")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+bd027b84abf45ba4c9bebcf6f120aab157c8f75f")]
 [assembly: System.Reflection.AssemblyProductAttribute("CaseManagement.Api")]
 [assembly: System.Reflection.AssemblyTitleAttribute("CaseManagement.Api")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
