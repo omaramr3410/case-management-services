@@ -1,0 +1,11 @@
+IF NOT EXISTS (SELECT 1 FROM sys.tables WHERE name = 'User')
+BEGIN
+    CREATE TABLE dbo.[User] (
+        Id UNIQUEIDENTIFIER NOT NULL PRIMARY KEY,
+        Username NVARCHAR(256) NOT NULL UNIQUE,
+        PasswordHash NVARCHAR(512) NOT NULL,
+        Role NVARCHAR(50) NOT NULL,
+        IsActive BIT NOT NULL DEFAULT 1,
+        CreatedAt DATETIME2 NOT NULL DEFAULT SYSUTCDATETIME()
+    );
+END
