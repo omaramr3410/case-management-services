@@ -21,7 +21,7 @@ var builder = WebApplication.CreateBuilder(args);
 // --------------------
 // Controllers
 // --------------------
-builder.Services.AddControllers(); 
+builder.Services.AddControllers();
 
 // --------------------
 // Swagger
@@ -162,7 +162,7 @@ if (app.Environment.IsDevelopment())
 {
     app.UseDeveloperExceptionPage(); // or similar in modern .NET
     app.UseSwagger();
-    app.UseSwaggerUI();    
+    app.UseSwaggerUI();
 }
 
 //Init DB and seed

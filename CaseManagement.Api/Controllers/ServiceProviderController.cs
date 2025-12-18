@@ -24,11 +24,12 @@ namespace CaseManagement.Api.Controllers
             => (await _serviceProvierOrchestrator.GetByIdAsync(id)) is { } result ? Ok(result) : NotFound();
 
         [HttpPost("search")]
-        public async Task<IActionResult> Search(ServiceProviderQueryRequest request){
-            
-            return Ok(await _serviceProvierOrchestrator.SearchAsync(request));    
+        public async Task<IActionResult> Search(ServiceProviderQueryRequest request)
+        {
+
+            return Ok(await _serviceProvierOrchestrator.SearchAsync(request));
         }
-        
+
         [HttpPost]
         [Authorize(Roles = "Admin,Officer")]
         public async Task<IActionResult> Create(CrreateServiceProviderRequest request)

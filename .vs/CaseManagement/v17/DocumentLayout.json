@@ -3,8 +3,32 @@
   "WorkspaceRootPath": "C:\\Users\\sonic\\Documents\\Repos\\case-management-services\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{1C8DF8EF-B7FE-4371-95B9-4AC7D2AEC925}|CaseManagement.Api\\CaseManagement.Api.csproj|c:\\users\\sonic\\documents\\repos\\case-management-services\\casemanagement.api\\controllers\\serviceprovidercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1C8DF8EF-B7FE-4371-95B9-4AC7D2AEC925}|CaseManagement.Api\\CaseManagement.Api.csproj|solutionrelative:casemanagement.api\\controllers\\serviceprovidercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2034F4B6-F1EE-4878-934B-15493562FF80}|CaseManagement.Api.Tests\\CaseManagement.Api.Tests.csproj|c:\\users\\sonic\\documents\\repos\\case-management-services\\casemanagement.api.tests\\orchestrators\\officerorchestratortests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2034F4B6-F1EE-4878-934B-15493562FF80}|CaseManagement.Api.Tests\\CaseManagement.Api.Tests.csproj|solutionrelative:casemanagement.api.tests\\orchestrators\\officerorchestratortests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C8DF8EF-B7FE-4371-95B9-4AC7D2AEC925}|CaseManagement.Api\\CaseManagement.Api.csproj|c:\\users\\sonic\\documents\\repos\\case-management-services\\casemanagement.api\\domain\\entities\\officer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1C8DF8EF-B7FE-4371-95B9-4AC7D2AEC925}|CaseManagement.Api\\CaseManagement.Api.csproj|solutionrelative:casemanagement.api\\domain\\entities\\officer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{1C8DF8EF-B7FE-4371-95B9-4AC7D2AEC925}|CaseManagement.Api\\CaseManagement.Api.csproj|c:\\users\\sonic\\documents\\repos\\case-management-services\\casemanagement.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{1C8DF8EF-B7FE-4371-95B9-4AC7D2AEC925}|CaseManagement.Api\\CaseManagement.Api.csproj|solutionrelative:casemanagement.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2034F4B6-F1EE-4878-934B-15493562FF80}|CaseManagement.Api.Tests\\CaseManagement.Api.Tests.csproj|c:\\users\\sonic\\documents\\repos\\case-management-services\\casemanagement.api.tests\\orchestrators\\caseorchestratortests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2034F4B6-F1EE-4878-934B-15493562FF80}|CaseManagement.Api.Tests\\CaseManagement.Api.Tests.csproj|solutionrelative:casemanagement.api.tests\\orchestrators\\caseorchestratortests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2034F4B6-F1EE-4878-934B-15493562FF80}|CaseManagement.Api.Tests\\CaseManagement.Api.Tests.csproj|c:\\users\\sonic\\documents\\repos\\case-management-services\\casemanagement.api.tests\\orchestrators\\clientorchestratortests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2034F4B6-F1EE-4878-934B-15493562FF80}|CaseManagement.Api.Tests\\CaseManagement.Api.Tests.csproj|solutionrelative:casemanagement.api.tests\\orchestrators\\clientorchestratortests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2034F4B6-F1EE-4878-934B-15493562FF80}|CaseManagement.Api.Tests\\CaseManagement.Api.Tests.csproj|c:\\users\\sonic\\documents\\repos\\case-management-services\\casemanagement.api.tests\\orchestrators\\serviceproviderorchestratortests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2034F4B6-F1EE-4878-934B-15493562FF80}|CaseManagement.Api.Tests\\CaseManagement.Api.Tests.csproj|solutionrelative:casemanagement.api.tests\\orchestrators\\serviceproviderorchestratortests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{1C8DF8EF-B7FE-4371-95B9-4AC7D2AEC925}|CaseManagement.Api\\CaseManagement.Api.csproj|c:\\users\\sonic\\documents\\repos\\case-management-services\\casemanagement.api\\controllers\\clientscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -22,19 +46,71 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 0,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "ClientsController.cs",
-              "DocumentMoniker": "C:\\Users\\sonic\\Documents\\Repos\\case-management-services\\CaseManagement.Api\\Controllers\\ClientsController.cs",
-              "RelativeDocumentMoniker": "CaseManagement.Api\\Controllers\\ClientsController.cs",
-              "ToolTip": "C:\\Users\\sonic\\Documents\\Repos\\case-management-services\\CaseManagement.Api\\Controllers\\ClientsController.cs",
-              "RelativeToolTip": "CaseManagement.Api\\Controllers\\ClientsController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABgAAAA0AAAAAAAAAA==",
+              "DocumentIndex": 0,
+              "Title": "ServiceProviderController.cs",
+              "DocumentMoniker": "C:\\Users\\sonic\\Documents\\Repos\\case-management-services\\CaseManagement.Api\\Controllers\\ServiceProviderController.cs",
+              "RelativeDocumentMoniker": "CaseManagement.Api\\Controllers\\ServiceProviderController.cs",
+              "ToolTip": "C:\\Users\\sonic\\Documents\\Repos\\case-management-services\\CaseManagement.Api\\Controllers\\ServiceProviderController.cs",
+              "RelativeToolTip": "CaseManagement.Api\\Controllers\\ServiceProviderController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABoAAABUAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-18T21:38:49.862Z",
+              "WhenOpened": "2025-12-18T21:56:44.684Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Officer.cs",
+              "DocumentMoniker": "C:\\Users\\sonic\\Documents\\Repos\\case-management-services\\CaseManagement.Api\\Domain\\Entities\\Officer.cs",
+              "RelativeDocumentMoniker": "CaseManagement.Api\\Domain\\Entities\\Officer.cs",
+              "ToolTip": "C:\\Users\\sonic\\Documents\\Repos\\case-management-services\\CaseManagement.Api\\Domain\\Entities\\Officer.cs",
+              "RelativeToolTip": "CaseManagement.Api\\Domain\\Entities\\Officer.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-18T21:56:23.2Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "CaseOrchestratorTests.cs",
+              "DocumentMoniker": "C:\\Users\\sonic\\Documents\\Repos\\case-management-services\\CaseManagement.Api.Tests\\Orchestrators\\CaseOrchestratorTests.cs",
+              "RelativeDocumentMoniker": "CaseManagement.Api.Tests\\Orchestrators\\CaseOrchestratorTests.cs",
+              "ToolTip": "C:\\Users\\sonic\\Documents\\Repos\\case-management-services\\CaseManagement.Api.Tests\\Orchestrators\\CaseOrchestratorTests.cs",
+              "RelativeToolTip": "CaseManagement.Api.Tests\\Orchestrators\\CaseOrchestratorTests.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAArAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-18T21:53:38.984Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "ClientOrchestratorTests.cs",
+              "DocumentMoniker": "C:\\Users\\sonic\\Documents\\Repos\\case-management-services\\CaseManagement.Api.Tests\\Orchestrators\\ClientOrchestratorTests.cs",
+              "RelativeDocumentMoniker": "CaseManagement.Api.Tests\\Orchestrators\\ClientOrchestratorTests.cs",
+              "ToolTip": "C:\\Users\\sonic\\Documents\\Repos\\case-management-services\\CaseManagement.Api.Tests\\Orchestrators\\ClientOrchestratorTests.cs",
+              "RelativeToolTip": "CaseManagement.Api.Tests\\Orchestrators\\ClientOrchestratorTests.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAAAQAAAAxAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-18T21:53:27.695Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "ServiceProviderOrchestratorTests.cs",
+              "DocumentMoniker": "C:\\Users\\sonic\\Documents\\Repos\\case-management-services\\CaseManagement.Api.Tests\\Orchestrators\\ServiceProviderOrchestratorTests.cs",
+              "RelativeDocumentMoniker": "CaseManagement.Api.Tests\\Orchestrators\\ServiceProviderOrchestratorTests.cs",
+              "ToolTip": "C:\\Users\\sonic\\Documents\\Repos\\case-management-services\\CaseManagement.Api.Tests\\Orchestrators\\ServiceProviderOrchestratorTests.cs",
+              "RelativeToolTip": "CaseManagement.Api.Tests\\Orchestrators\\ServiceProviderOrchestratorTests.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAABOAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-18T21:53:18.821Z",
               "EditorCaption": ""
             },
             {
@@ -43,26 +119,50 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "CaseManagement.Api",
+              "DocumentIndex": 1,
+              "Title": "OfficerOrchestratorTests.cs",
+              "DocumentMoniker": "C:\\Users\\sonic\\Documents\\Repos\\case-management-services\\CaseManagement.Api.Tests\\Orchestrators\\OfficerOrchestratorTests.cs",
+              "RelativeDocumentMoniker": "CaseManagement.Api.Tests\\Orchestrators\\OfficerOrchestratorTests.cs",
+              "ToolTip": "C:\\Users\\sonic\\Documents\\Repos\\case-management-services\\CaseManagement.Api.Tests\\Orchestrators\\OfficerOrchestratorTests.cs",
+              "RelativeToolTip": "CaseManagement.Api.Tests\\Orchestrators\\OfficerOrchestratorTests.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAASAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-18T21:52:53.098Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "ClientsController.cs",
+              "DocumentMoniker": "C:\\Users\\sonic\\Documents\\Repos\\case-management-services\\CaseManagement.Api\\Controllers\\ClientsController.cs",
+              "RelativeDocumentMoniker": "CaseManagement.Api\\Controllers\\ClientsController.cs",
+              "ToolTip": "C:\\Users\\sonic\\Documents\\Repos\\case-management-services\\CaseManagement.Api\\Controllers\\ClientsController.cs",
+              "RelativeToolTip": "CaseManagement.Api\\Controllers\\ClientsController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABgAAAA0AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-18T21:38:49.862Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "CaseManagement.Api.csproj",
               "DocumentMoniker": "C:\\Users\\sonic\\Documents\\Repos\\case-management-services\\CaseManagement.Api\\CaseManagement.Api.csproj",
               "RelativeDocumentMoniker": "CaseManagement.Api\\CaseManagement.Api.csproj",
               "ToolTip": "C:\\Users\\sonic\\Documents\\Repos\\case-management-services\\CaseManagement.Api\\CaseManagement.Api.csproj",
               "RelativeToolTip": "CaseManagement.Api\\CaseManagement.Api.csproj",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAACcAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2025-12-18T21:14:59.896Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-12-18T21:14:59.896Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 3,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Users\\sonic\\Documents\\Repos\\case-management-services\\CaseManagement.Api\\Program.cs",
               "RelativeDocumentMoniker": "CaseManagement.Api\\Program.cs",
               "ToolTip": "C:\\Users\\sonic\\Documents\\Repos\\case-management-services\\CaseManagement.Api\\Program.cs",
               "RelativeToolTip": "CaseManagement.Api\\Program.cs",
-              "ViewState": "AgIAAIQAAAAAAAAAAAAAAKsAAAAqAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABkAAAAXAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-12-18T21:13:13.734Z",
               "EditorCaption": ""

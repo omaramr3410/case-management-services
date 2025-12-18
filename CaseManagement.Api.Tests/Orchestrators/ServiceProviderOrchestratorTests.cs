@@ -4,35 +4,37 @@ using CaseManagement.Api.Infrastructure.Auditing;
 using CaseManagement.Api.Infrastructure.Repositories;
 using ServiceProvider = CaseManagement.Api.Domain.Entities.ServiceProvider;
 using NSubstitute;
-using Xunit;
 using CaseManagement.Api.Infrastructure.Security;
 
-public class ServiceProviderOrchestratorTests
+namespace CaseManagement.Api.Tests.Orchestrators
 {
-    private readonly IServiceProviderRepository _repo = Substitute.For<IServiceProviderRepository>();
-    private readonly IAuditService _audit = Substitute.For<IAuditService>();
-
-    [Fact]
-    public async Task CreateAsync_ShouldCreateServiceProvider()
+    public class ServiceProviderOrchestratorTests
     {
-        // Arrange
-        var orchestrator = new ServiceProviderOrchestrator(_repo, _audit);
+        private readonly IServiceProviderRepository _repo = Substitute.For<IServiceProviderRepository>();
+        private readonly IAuditService _audit = Substitute.For<IAuditService>();
 
-        var request = new CrreateServiceProviderRequest
+        [Fact]
+        public async Task CreateAsync_ShouldCreateServiceProvider()
         {
-            Name = "Provider A",
-            Region = "VA",
-            ServiceType = "Medical"
-        };
+            // Arrange
+            var orchestrator = new ServiceProviderOrchestrator(_repo, _audit);
 
-        var userContext = new UserContext { UserId = Guid.Parse("CD1EF5BF-3BD4-49F9-1FB5-08DE3CDD3A2C"), Username = "adminTestRole", IpAddress = "TESTING", UserRole = "admin" };
+            var request = new CrreateServiceProviderRequest
+            {
+                Name = "Provider A",
+                Region = "VA",
+                ServiceType = "Medical"
+            };
 
-        // Act
-        var result = await orchestrator.CreateAsync(request, userContext);
+            var userContext = new UserContext { UserId = Guid.Parse("CD1EF5BF-3BD4-49F9-1FB5-08DE3CDD3A2C"), Username = "adminTestRole", IpAddress = "TESTING", UserRole = "admin" };
 
-        // Assert
-        Assert.NotEqual(Guid.Empty, result.Id);
-        await _repo.Received(1).CreateAsync(Arg.Any<ServiceProvider>());
-        await _audit.Received(1).LogAsync(userContext, "ServiceProvider", result.Id.ToString(), "CREATE");
+            // Act
+            var result = await orchestrator.CreateAsync(request, userContext);
+
+            // Assert
+            Assert.NotEqual(Guid.Empty, result.Id);
+            await _repo.Received(1).CreateAsync(Arg.Any<ServiceProvider>());
+            await _audit.Received(1).LogAsync(userContext, "ServiceProvider", result.Id.ToString(), "CREATE");
+        }
     }
 }
