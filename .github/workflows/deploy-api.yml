@@ -12,15 +12,6 @@ permissions:
   id-token: write
   contents: read
 
-env:
-  AZURE_CLIENT_ID: 8e7b07a6-be67-4897-a081-3bac13e29c2d
-  AZURE_TENANT_ID: 84b76628-9c74-4f8e-9fa1-edd6e9d10a5f
-  AZURE_SUBSCRIPTION_ID: 689a8f36-c99c-48da-8a2d-8cd55b3fc23c
-
-  APP_NAME: cms-app-service
-  RESOURCE_GROUP: case-management-rg
-  DOTNET_VERSION: "8.0.x"
-
 # Pipeline job
 jobs:
   lint-build-test-deploy:
@@ -33,7 +24,7 @@ jobs:
       - name: Setup .NET SDK
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: ${{ env.DOTNET_VERSION }}
+          dotnet-version: "8.0.x"
 
       # -------------------
       # LINT STAGE
@@ -41,7 +32,7 @@ jobs:
       - name: Restore dependencies
         run: dotnet restore
 
-      - name: Lint (dotnet format)
+      - name: Lint
         run: dotnet format --verify-no-changes
         continue-on-error: false
 
@@ -55,26 +46,21 @@ jobs:
       # TEST STAGE
       # -------------------
       - name: Run tests
-        run: dotnet test --configuration Release --verbosity normal
+        run: dotnet test Casemanagement.api.tests/casemanagement.api.tests.csproj --configuration Release --verbosity normal
 
       # -------------------
       # DEPLOY STAGE
       # -------------------
-      - name: Publish
+      - name: Deploy API
         if: github.ref == 'refs/heads/main'
-        run: dotnet publish CaseManagement.Api/CaseManagement.Api.csproj -c Release -o publish
+        run: |
+          dotnet publish CaseManagement.Api/CaseManagement.Api.csproj -c Release -o publish
+          az webapp deploy \
+            --resource-group ${{ secrets.RESOURCE_GROUP }} \
+            --name ${{ secrets.WEB_APP_NAME }} \
+            --src-path publish
 
-      - name: Azure Login (OIDC Standard)
+      # Publish to Prod Database
+      - name: Apply EF Migrations
         if: github.ref == 'refs/heads/main'
-        uses: azure/login@v2
-        with:
-          client-id: ${{ env.AZURE_CLIENT_ID }}
-          tenant-id: ${{ env.AZURE_TENANT_ID }}
-          subscription-id: ${{ env.AZURE_SUBSCRIPTION_ID }}
-
-      - name: Deploy to Azure App Service
-        if: github.ref == 'refs/heads/main'
-        uses: azure/webapps-deploy@v3
-        with:
-          app-name: ${{ env.APP_NAME }}
-          package: publish
+        run: dotnet ef database update --project CaseManagement.Api/CaseManagement.Api.csproj --configuration Release --environment Production
