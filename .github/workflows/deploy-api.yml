@@ -46,7 +46,7 @@ jobs:
       # TEST STAGE
       # -------------------
       - name: Run tests
-        run: dotnet test casemanagement.api.tests/casemanagement.api.tests.csproj --configuration Release --verbosity normal
+        run: dotnet test --configuration Release --verbosity normal
 
       # -------------------
       # DEPLOY STAGE
