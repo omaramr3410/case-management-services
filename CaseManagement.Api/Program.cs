@@ -160,7 +160,7 @@ builder.Services.AddApiVersioning(options =>
 var app = builder.Build();
 
 //if (app.Environment.IsDevelopment())
-{
+//{
     app.UseDeveloperExceptionPage(); // or similar in modern .NET
     app.UseSwagger();
     app.UseSwaggerUI();
