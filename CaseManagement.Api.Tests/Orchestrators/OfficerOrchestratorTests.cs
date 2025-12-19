@@ -1,33 +1,71 @@
 ﻿using CaseManagement.Api.Domain.DTOs.Officers;
+using CaseManagement.Api.Domain.Entities;
 using CaseManagement.Api.Infrastructure.Auditing;
 using CaseManagement.Api.Infrastructure.Repositories;
 using CaseManagement.Api.Infrastructure.Security;
 using CaseManagement.Api.Orchestrators;
+using Castle.DynamicProxy;
 using NSubstitute;
+using System;
+using System.Threading.Tasks;
 using Xunit;
 
-public class OfficerOrchestratorTests
+namespace CaseManagement.Api.Tests.Orchestrators
 {
-    private readonly IOfficerRepository _repo = Substitute.For<IOfficerRepository>();
-    private readonly IAuditService _audit = Substitute.For<IAuditService>();
-
-    [Fact]
-    public async Task CreateAsync_ShouldCreateOfficer()
+    public class OfficerOrchestratorTests
     {
-        var orchestrator = new OfficerOrchestrator(_repo, _audit);
-
-        var request = new OfficerCreateRequest
+        [Fact]
+        public async Task CreateAsync_Should_Audit_Via_Interceptor()
         {
-            FirstName = "Jane",
-            LastName = "Smith",
-            Region = "VA"
-        };
+            // Arrange
+            var repo = Substitute.For<IOfficerRepository>();
+            var audit = Substitute.For<IAuditService>();
+            var userContext = Substitute.For<IUserContextProvider>();
 
-        var userContext = new UserContext { UserId = Guid.Parse("CD1EF5BF-3BD4-49F9-1FB5-08DE3CDD3A2C"), Username = "adminTestRole", IpAddress = "TESTING", UserRole = "admin" };
+            var user = new UserContext
+            {
+                UserId = Guid.NewGuid(),
+                Username = "tester",
+                UserRole = "admin",
+                IpAddress = "127.0.0.1"
+            };
 
-        var result = await orchestrator.CreateAsync(request, userContext);
+            userContext.GetUserContext().Returns(user);
 
-        Assert.NotNull(result);
-        await _audit.Received(1).LogAsync(userContext,"Officer", result.ToString(), "CREATE");
+            repo.CreateAsync(Arg.Any<Officer>())
+                .Returns(ci => ci.Arg<Officer>().Id);
+
+            var proxyGenerator = new ProxyGenerator();
+
+            var auditInterceptor = new AuditInterceptor(audit, userContext);
+
+            var repoProxy =
+                proxyGenerator.CreateInterfaceProxyWithTarget<IOfficerRepository>(
+                    repo,
+                    auditInterceptor
+                );
+
+            var orchestrator = new OfficerOrchestrator(repoProxy, audit);
+
+            var request = new OfficerCreateRequest
+            {
+                FirstName = "Jane",
+                LastName = "Smith",
+                Region = "VA"
+            };
+
+            // Act
+            var id = await orchestrator.CreateAsync(request, user);
+
+            // Assert
+            Assert.NotEqual(Guid.Empty, id);
+
+            await audit.Received(1).LogAsync(
+                Arg.Any<UserContext>(),
+                Arg.Any<string>(),
+                Arg.Any<string>(),
+                Arg.Any<string>(),
+                Arg.Any<string>());
+        }
     }
 }

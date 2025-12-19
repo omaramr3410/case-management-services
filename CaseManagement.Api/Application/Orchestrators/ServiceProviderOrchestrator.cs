@@ -18,7 +18,7 @@ namespace CaseManagement.Api.Application.Orchestrators
             _audit = audit;
         }
 
-        public async Task<ServiceProviderDto> CreateAsync(CrreateServiceProviderRequest request, UserContext user)
+        public async Task<ServiceProviderDto> CreateAsync(CreateServiceProviderRequest request, UserContext user)
         {
             var entity = request.Adapt<ServiceProvider>();
             entity.Id = Guid.NewGuid();

@@ -21,7 +21,7 @@ namespace CaseManagement.Api.Domain.Entities
 
         public required string Region { get; set; } = null!;
 
-        public required DateTime CreatedAt { get; set; } 
+        public required DateTime CreatedAt { get; set; }
 
     }
 }

@@ -1,38 +1,74 @@
 ﻿using CaseManagement.Api.Application.Orchestrators;
 using CaseManagement.Api.Domain.DTOs.ServiceProviders;
+using CaseManagement.Api.Domain.Entities;
 using CaseManagement.Api.Infrastructure.Auditing;
 using CaseManagement.Api.Infrastructure.Repositories;
-using ServiceProvider = CaseManagement.Api.Domain.Entities.ServiceProvider;
-using NSubstitute;
-using Xunit;
 using CaseManagement.Api.Infrastructure.Security;
+using Castle.DynamicProxy;
+using NSubstitute;
+using System;
+using System.Threading.Tasks;
+using Xunit;
+using ServiceProvider = CaseManagement.Api.Domain.Entities.ServiceProvider;
 
-public class ServiceProviderOrchestratorTests
+namespace CaseManagement.Api.Tests.Orchestrators
 {
-    private readonly IServiceProviderRepository _repo = Substitute.For<IServiceProviderRepository>();
-    private readonly IAuditService _audit = Substitute.For<IAuditService>();
-
-    [Fact]
-    public async Task CreateAsync_ShouldCreateServiceProvider()
+    public class ServiceProviderOrchestratorTests
     {
-        // Arrange
-        var orchestrator = new ServiceProviderOrchestrator(_repo, _audit);
-
-        var request = new CrreateServiceProviderRequest
+        [Fact]
+        public async Task CreateAsync_Should_Audit_Via_Interceptor()
         {
-            Name = "Provider A",
-            Region = "VA",
-            ServiceType = "Medical"
-        };
+            // Arrange
+            var repo = Substitute.For<IServiceProviderRepository>();
+            var audit = Substitute.For<IAuditService>();
+            var userContext = Substitute.For<IUserContextProvider>();
 
-        var userContext = new UserContext { UserId = Guid.Parse("CD1EF5BF-3BD4-49F9-1FB5-08DE3CDD3A2C"), Username = "adminTestRole", IpAddress = "TESTING", UserRole = "admin" };
+            var user = new UserContext
+            {
+                UserId = Guid.NewGuid(),
+                Username = "tester",
+                UserRole = "admin",
+                IpAddress = "127.0.0.1"
+            };
 
-        // Act
-        var result = await orchestrator.CreateAsync(request, userContext);
+            userContext.GetUserContext().Returns(user);
 
-        // Assert
-        Assert.NotEqual(Guid.Empty, result.Id);
-        await _repo.Received(1).CreateAsync(Arg.Any<ServiceProvider>());
-        await _audit.Received(1).LogAsync(userContext, "ServiceProvider", result.Id.ToString(), "CREATE");
+            repo.CreateAsync(Arg.Any<ServiceProvider>())
+                .Returns(call =>
+                    Task.FromResult(call.Arg<ServiceProvider>().Id)
+                );
+
+
+            var proxyGenerator = new ProxyGenerator();
+
+            var auditInterceptor = new AuditInterceptor(audit, userContext);
+
+            var repoProxy =
+                proxyGenerator.CreateInterfaceProxyWithTarget<IServiceProviderRepository>(
+                    repo,
+                    auditInterceptor
+                );
+
+            var orchestrator = new ServiceProviderOrchestrator(repoProxy, audit);
+
+            var request = new CreateServiceProviderRequest
+            {
+                Name = "Test Provider",
+                Region = "VA"
+            };
+
+            // Act
+            var result = await orchestrator.CreateAsync(request, user);
+
+            // Assert
+            Assert.NotEqual(Guid.Empty, result.Id);
+
+            await audit.Received(1).LogAsync(
+                Arg.Any<UserContext>(),
+                Arg.Any<string>(),
+                Arg.Any<string>(),
+                Arg.Any<string>(),
+                Arg.Any<string>());
+        }
     }
 }

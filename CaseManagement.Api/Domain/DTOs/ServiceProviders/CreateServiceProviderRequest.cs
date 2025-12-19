@@ -1,6 +1,6 @@
 namespace CaseManagement.Api.Domain.DTOs.ServiceProviders
 {
-    public record CrreateServiceProviderRequest
+    public record CreateServiceProviderRequest
     {
         public string Name { get; init; } = null!;
         public string Region { get; init; } = null!;

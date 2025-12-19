@@ -3,30 +3,25 @@ using CaseManagement.Api.Infrastructure.Auditing;
 using CaseManagement.Api.Infrastructure.Data;
 using CaseManagement.Api.Infrastructure.Repositories;
 using CaseManagement.Api.Infrastructure.Security;
+using CaseManagement.Api.Middleware;
 using CaseManagement.Api.Orchestrators;
 using CaseManagement.Api.Repositories;
 using Mapster;
 using MapsterMapper;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using Serilog;
 using System.Text;
-
-// internal class Program
-// {
-//     private static void Main(string[] args)
-//     {
-
-//     }
-// }
 
 var builder = WebApplication.CreateBuilder(args);
 
 // --------------------
 // Controllers
 // --------------------
-builder.Services.AddControllers(); // ✅ REQUIRED
+builder.Services.AddControllers();
 
 // --------------------
 // Swagger
@@ -115,6 +110,7 @@ builder.Services.AddDbContext<AppDbContext>((sp, options) =>
 
 builder.Services.AddSingleton<PasswordHasher>();
 builder.Services.AddScoped<IAuditService, AuditService>();
+builder.Services.AddScoped<IUserContextProvider, TestUserContextProvider>();
 builder.Services.AddScoped<JwtTokenService>();
 builder.Services.AddScoped<IAuditService, AuditService>();
 builder.Services.AddScoped<IMapper, ServiceMapper>();
@@ -130,13 +126,33 @@ builder.Services.AddScoped<IServiceProviderRepository, ServiceProviderRepository
 builder.Services.AddScoped<IServiceProviderOrchestrator, ServiceProviderOrchestrator>();
 
 
-
 //AddMappings
 var config = TypeAdapterConfig.GlobalSettings;
 config.Scan(typeof(MappingConfig).Assembly);
 
 builder.Services.AddSingleton(config);
 builder.Services.AddScoped<IMapper, ServiceMapper>();
+
+builder.Services.AddHealthChecks()
+    .AddDbContextCheck<AppDbContext>("sql");
+
+//Logger Config
+Log.Logger = new LoggerConfiguration()
+    .ReadFrom.Configuration(builder.Configuration)
+    .Enrich.FromLogContext()
+    .WriteTo.Console()
+    .CreateLogger();
+
+builder.Host.UseSerilog();
+
+// API Versioning
+builder.Services.AddApiVersioning(options =>
+{
+    options.DefaultApiVersion = new ApiVersion(1, 0);
+    options.AssumeDefaultVersionWhenUnspecified = true;
+    options.ReportApiVersions = true;
+});
+
 
 // --------------------
 // App
@@ -147,7 +163,7 @@ if (app.Environment.IsDevelopment())
 {
     app.UseDeveloperExceptionPage(); // or similar in modern .NET
     app.UseSwagger();
-    app.UseSwaggerUI();    
+    app.UseSwaggerUI();
 }
 
 //Init DB and seed
@@ -158,11 +174,15 @@ await DbInitializer.SeedAsync(db, hasher);
 
 app.UseExceptionHandler("/Error");
 
+app.MapHealthChecks("/health");
+
 app.UseHttpsRedirection();
 
 app.UseAuthentication();
 app.UseAuthorization();
 
-app.MapControllers(); // 🔥 THIS IS THE MISSING LINE
+app.MapControllers();
+
+app.UseMiddleware<ExceptionMiddleware>();
 
 app.Run();
