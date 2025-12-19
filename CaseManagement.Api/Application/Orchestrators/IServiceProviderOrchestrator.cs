@@ -7,6 +7,6 @@ namespace CaseManagement.Api.Application.Orchestrators
     {
         Task<ServiceProviderDto?> GetByIdAsync(Guid id);
         Task<IEnumerable<ServiceProviderDto>> SearchAsync(ServiceProviderQueryRequest request);
-        Task<ServiceProviderDto> CreateAsync(CrreateServiceProviderRequest request, UserContext user);
+        Task<ServiceProviderDto> CreateAsync(CreateServiceProviderRequest request, UserContext user);
     }
 }

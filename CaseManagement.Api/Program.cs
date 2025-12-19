@@ -110,6 +110,7 @@ builder.Services.AddDbContext<AppDbContext>((sp, options) =>
 
 builder.Services.AddSingleton<PasswordHasher>();
 builder.Services.AddScoped<IAuditService, AuditService>();
+builder.Services.AddScoped<IUserContextProvider, TestUserContextProvider>();
 builder.Services.AddScoped<JwtTokenService>();
 builder.Services.AddScoped<IAuditService, AuditService>();
 builder.Services.AddScoped<IMapper, ServiceMapper>();

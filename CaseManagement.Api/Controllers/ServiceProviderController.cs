@@ -32,7 +32,7 @@ namespace CaseManagement.Api.Controllers
 
         [HttpPost]
         [Authorize(Roles = "Admin,Officer")]
-        public async Task<IActionResult> Create(CrreateServiceProviderRequest request)
+        public async Task<IActionResult> Create(CreateServiceProviderRequest request)
         {
             var user = UserContext.FromClaims(User, HttpContext.Connection.RemoteIpAddress?.ToString());
             // CreatedAtAction(nameof(GetById), new { id = (await _orchestrator.CreateAsync(request)).Id },

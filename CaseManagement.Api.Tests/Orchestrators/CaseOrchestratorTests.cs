@@ -1,21 +1,51 @@
 ﻿using CaseManagement.Api.Domain.DTOs.Cases;
+using CaseManagement.Api.Domain.Entities;
 using CaseManagement.Api.Infrastructure.Auditing;
 using CaseManagement.Api.Infrastructure.Repositories;
 using CaseManagement.Api.Infrastructure.Security;
 using CaseManagement.Api.Orchestrators;
+using Castle.DynamicProxy;
 using NSubstitute;
+using System;
+using System.Threading.Tasks;
+using Xunit;
 
 namespace CaseManagement.Api.Tests.Orchestrators
 {
     public class CaseOrchestratorTests
     {
-        private readonly ICaseRepository _repo = Substitute.For<ICaseRepository>();
-        private readonly IAuditService _audit = Substitute.For<IAuditService>();
-
         [Fact]
-        public async Task CreateAsync_ShouldAssignGuidAndAudit()
+        public async Task CreateAsync_Should_Audit_Via_Interceptor()
         {
-            var orchestrator = new CaseOrchestrator(_repo, _audit);
+            // Arrange
+            var repo = Substitute.For<ICaseRepository>();
+            var audit = Substitute.For<IAuditService>();
+            var userContext = Substitute.For<IUserContextProvider>();
+
+            var user = new UserContext
+            {
+                UserId = Guid.NewGuid(),
+                Username = "tester",
+                UserRole = "admin",
+                IpAddress = "127.0.0.1"
+            };
+
+            userContext.GetUserContext().Returns(user);
+
+            repo.CreateAsync(Arg.Any<Case>())
+                .Returns(ci => ci.Arg<Case>().Id);
+
+            var proxyGenerator = new ProxyGenerator();
+
+            var auditInterceptor = new AuditInterceptor(audit, userContext);
+
+            var repoProxy =
+                proxyGenerator.CreateInterfaceProxyWithTarget<ICaseRepository>(
+                    repo,
+                    auditInterceptor
+                );
+
+            var orchestrator = new CaseOrchestrator(repoProxy, audit);
 
             var request = new CreateCaseRequest
             {
@@ -24,12 +54,16 @@ namespace CaseManagement.Api.Tests.Orchestrators
                 Region = "VA"
             };
 
-            var userContext = new UserContext { UserId = Guid.Parse("CD1EF5BF-3BD4-49F9-1FB5-08DE3CDD3A2C"), Username = "adminTestRole", IpAddress = "TESTING", UserRole = "admin" };
+            var id = await orchestrator.CreateAsync(request, user);
 
-            var result = await orchestrator.CreateAsync(request, userContext);
+            Assert.NotEqual(Guid.Empty, id);
 
-            Assert.NotEqual(Guid.Empty, result);
-            await _audit.Received(1).LogAsync(userContext, "Case", result.ToString(), "CREATE");
+            await audit.Received(1).LogAsync(
+                Arg.Any<UserContext>(),
+                Arg.Any<string>(),
+                Arg.Any<string>(),
+                Arg.Any<string>(),
+                Arg.Any<string>());
         }
     }
 }

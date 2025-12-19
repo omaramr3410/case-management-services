@@ -37,11 +37,10 @@ public sealed class ClientOrchestrator : IClientOrchestrator
     public async Task<Guid> CreateAsync(CreateClientRequest req, UserContext user)
     {
         var client = req.Adapt<Client>();
+        client.Id = Guid.NewGuid();
         client.CreatedAt = DateTime.UtcNow;
 
         var id = await clientRepository.CreateAsync(client);
-
-        await _audit.LogAsync(user, "Client", id.ToString(), "CREATE");
 
         return id;
     }
@@ -54,7 +53,5 @@ public sealed class ClientOrchestrator : IClientOrchestrator
         req.Adapt(client);
 
         await clientRepository.UpdateAsync(client);
-
-        await _audit.LogAsync(user, "Client", id.ToString(), "UPDATE");
     }
 }
