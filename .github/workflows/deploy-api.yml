@@ -26,6 +26,11 @@ jobs:
         with:
           dotnet-version: "8.0.x"
 
+      - name: Debug web app name
+        run: echo "WEB_APP_NAME=${{ secrets.WEB_APP_NAME }}"
+        run: echo "RESOURCE_GROUP=${{ secrets.RESOURCE_GROUP }}"
+
+
       # -------------------
       # LINT STAGE
       # -------------------
