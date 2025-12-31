@@ -56,10 +56,10 @@ jobs:
         run: |
           dotnet publish CaseManagement.Api/CaseManagement.Api.csproj -c Release -o publish
 
-          az webapp deploy ^
-            --resource-group ${{ secrets.RESOURCE_GROUP }} ^
-            --name ${{ secrets.WEB_APP_NAME }} ^
-            --src-path publish ^
+          az webapp deploy \
+            --resource-group ${{ secrets.RESOURCE_GROUP }} \
+            --name ${{ secrets.WEB_APP_NAME }} \
+            --src-path publish \
             --type zip
 
       # Publish to Prod Database
