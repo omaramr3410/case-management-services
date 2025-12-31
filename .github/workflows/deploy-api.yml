@@ -28,6 +28,7 @@ jobs:
 
       - name: Debug web app name
         run: echo "WEB_APP_NAME=${{ secrets.WEB_APP_NAME }}"
+      - name: Debug resource group
         run: echo "RESOURCE_GROUP=${{ secrets.RESOURCE_GROUP }}"
 
 
