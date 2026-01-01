@@ -171,9 +171,7 @@ await DbInitializer.SeedAsync(db, hasher);
 
 if (app.Environment.IsProduction())
 {
-    using var scope = app.Services.CreateScope();
     var logger = scope.ServiceProvider.GetRequiredService<ILogger<Program>>();
-    var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
 
     logger.LogInformation("Applying EF Core migrations...");
     await db.Database.MigrateAsync();
