@@ -9,11 +9,11 @@ namespace CaseManagement.Api.Controllers
     [ApiController]
     [Route("api/service-providers")]
     [Authorize(Roles = "Admin,Officer")]
-    public class ServiceProvidersController : ControllerBase
+    public class ServiceProviderController : ControllerBase
     {
         private readonly IServiceProviderOrchestrator _serviceProvierOrchestrator;
 
-        public ServiceProvidersController(IServiceProviderOrchestrator serviceProviderOrchestrator)
+        public ServiceProviderController(IServiceProviderOrchestrator serviceProviderOrchestrator)
         {
             _serviceProvierOrchestrator = serviceProviderOrchestrator;
         }
