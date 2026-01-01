@@ -9,11 +9,11 @@ namespace CaseManagement.Api.Controllers;
 [ApiController]
 [Route("api/officers")]
 [Authorize]
-public sealed class OfficersController : ControllerBase
+public sealed class OfficerController : ControllerBase
 {
     private readonly IOfficerOrchestrator _orchestrator;
 
-    public OfficersController(IOfficerOrchestrator orchestrator)
+    public OfficerController(IOfficerOrchestrator orchestrator)
     {
         _orchestrator = orchestrator;
     }

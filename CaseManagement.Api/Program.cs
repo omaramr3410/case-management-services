@@ -89,9 +89,6 @@ builder.Services.AddAuthorization();
 // --------------------
 // EF Core DB and Audit Interceptor
 // --------------------
-// builder.Services.AddDbContext<AppDbContext>(options =>
-//     options.UseSqlServer(
-//         builder.Configuration.GetConnectionString("DefaultConnection")));
 builder.Services.AddHttpContextAccessor();
 
 builder.Services.AddScoped<IUserContext, UserContext>();
@@ -171,6 +168,16 @@ using var scope = app.Services.CreateScope();
 var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
 var hasher = scope.ServiceProvider.GetRequiredService<PasswordHasher>();
 await DbInitializer.SeedAsync(db, hasher);
+
+if (app.Environment.IsProduction())
+{
+    var logger = scope.ServiceProvider.GetRequiredService<ILogger<Program>>();
+
+    logger.LogInformation("Applying EF Core migrations...");
+    await db.Database.MigrateAsync();
+    logger.LogInformation("EF Core migrations applied successfully.");
+}
+
 
 app.UseExceptionHandler("/Error");
 

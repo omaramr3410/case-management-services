@@ -55,7 +55,7 @@ jobs:
         run: dotnet test --configuration Release --verbosity normal
 
       # -------------------
-      # DEPLOY STAGE
+      # DEPLOY STAGE - Login -> Publish -> Deploy
       # -------------------
       - name: Azure Login (OIDC)
         uses: azure/login@v2
@@ -75,9 +75,3 @@ jobs:
         with:
           app-name: ${{ secrets.WEB_APP_NAME }}
           package: publish
-
-
-      # Publish to Prod Database
-      - name: Apply EF Migrations
-        if: github.ref == 'refs/heads/main'
-        run: dotnet ef database update --project CaseManagement.Api/CaseManagement.Api.csproj --configuration Release --environment Production
