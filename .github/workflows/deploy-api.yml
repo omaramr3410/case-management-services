@@ -72,8 +72,7 @@ jobs:
           az webapp deploy \
             --resource-group ${{ secrets.RESOURCE_GROUP }} \
             --name ${{ secrets.WEB_APP_NAME }} \
-            --src-path publish \
-            --type zip
+            --src-path publish 
 
       # Publish to Prod Database
       - name: Apply EF Migrations
