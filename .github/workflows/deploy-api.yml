@@ -16,6 +16,7 @@ permissions:
 jobs:
   lint-build-test-deploy:
     runs-on: ubuntu-latest
+    environment: production
 
     steps:
       - name: Checkout repository
@@ -25,6 +26,11 @@ jobs:
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: "8.0.x"
+
+      - name: Debug web app name
+        run: echo "WEB_APP_NAME=${{ secrets.WEB_APP_NAME }}"
+      - name: Debug resource group
+        run: echo "RESOURCE_GROUP=${{ secrets.RESOURCE_GROUP }}"
 
       # -------------------
       # LINT STAGE
@@ -49,13 +55,23 @@ jobs:
         run: dotnet test --configuration Release --verbosity normal
 
       # -------------------
-      # DEPLOY STAGE
+      # DEPLOY STAGE - Login -> Publish -> Deploy
       # -------------------
-      - name: Deploy API
+      - name: Azure Login (OIDC)
+        uses: azure/login@v2
+        with:
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+
+      - name: Publish API
         if: github.ref == 'refs/heads/main'
         run: |
           dotnet publish CaseManagement.Api/CaseManagement.Api.csproj -c Release -o publish
-          az webapp deploy \
-            --resource-group ${{ secrets.RESOURCE_GROUP }} \
-            --name ${{ secrets.WEB_APP_NAME }} \
-            --src-path publish
+      
+      - name: Deploy to Azure App Service
+        if: github.ref == 'refs/heads/main'
+        uses: azure/webapps-deploy@v3
+        with:
+          app-name: ${{ secrets.WEB_APP_NAME }}
+          package: publish
