@@ -10,11 +10,11 @@ namespace CaseManagement.Api.Controllers;
 [ApiController]
 [Route("api/clients")]
 [Authorize]
-public sealed class ClientsController : ControllerBase
+public sealed class ClientController : ControllerBase
 {
     private readonly IClientOrchestrator _clientOrchestrator;
 
-    public ClientsController(IClientOrchestrator clientOrchestrator)
+    public ClientController(IClientOrchestrator clientOrchestrator)
     {
         _clientOrchestrator = clientOrchestrator;
     }
