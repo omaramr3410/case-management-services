@@ -32,7 +32,6 @@ jobs:
       - name: Debug resource group
         run: echo "RESOURCE_GROUP=${{ secrets.RESOURCE_GROUP }}"
 
-
       # -------------------
       # LINT STAGE
       # -------------------
