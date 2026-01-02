@@ -12,66 +12,74 @@ permissions:
   id-token: write
   contents: read
 
-# Pipeline job
 jobs:
-  lint-build-test-deploy:
+  # STAGE 1: LINT
+  lint:
     runs-on: ubuntu-latest
-    environment: production
-
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Setup .NET SDK
+      - uses: actions/checkout@v4
+      - name: Setup .NET
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: "8.0.x"
-
-      - name: Debug web app name
-        run: echo "WEB_APP_NAME=${{ secrets.WEB_APP_NAME }}"
-      - name: Debug resource group
-        run: echo "RESOURCE_GROUP=${{ secrets.RESOURCE_GROUP }}"
-
-      # -------------------
-      # LINT STAGE
-      # -------------------
-      - name: Restore dependencies
+      - name: Restore
         run: dotnet restore
-
       - name: Lint
         run: dotnet format --verify-no-changes
-        continue-on-error: false
 
-      # -------------------
-      # BUILD STAGE
-      # -------------------
+  # STAGE 2: BUILD
+  build:
+    needs: lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "8.0.x"
       - name: Build
-        run: dotnet build --configuration Release --no-restore
+        run: dotnet build --configuration Release
+      - name: Publish (Prepare Artifact)
+        run: dotnet publish CaseManagement.Api/CaseManagement.Api.csproj -c Release -o publish
+      - name: Upload Build Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: api-package
+          path: publish/
 
-      # -------------------
-      # TEST STAGE
-      # -------------------
+  # STAGE 3: TEST
+  test:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "8.0.x"
       - name: Run tests
         run: dotnet test --configuration Release --verbosity normal
 
-      # -------------------
-      # DEPLOY STAGE - Login -> Publish -> Deploy
-      # -------------------
+  # STAGE 4: DEPLOY (Only on main branch merge)
+  deploy:
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    needs: [test]
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - name: Download Build Artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: api-package
+          path: publish/
       - name: Azure Login (OIDC)
         uses: azure/login@v2
         with:
           client-id: ${{ secrets.AZURE_CLIENT_ID }}
           tenant-id: ${{ secrets.AZURE_TENANT_ID }}
           subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
-
-      - name: Publish API
-        if: github.ref == 'refs/heads/main'
-        run: |
-          dotnet publish CaseManagement.Api/CaseManagement.Api.csproj -c Release -o publish
-      
       - name: Deploy to Azure App Service
-        if: github.ref == 'refs/heads/main'
         uses: azure/webapps-deploy@v3
         with:
           app-name: ${{ secrets.WEB_APP_NAME }}
-          package: publish
+          package: publish/
