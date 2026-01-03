@@ -4,32 +4,142 @@ Backend Project for CMS, programmed in .NET 8
 
 ![CI/CD](https://github.com/omaramr3410/case-management-services/actions/workflows/deploy-api.yml/badge.svg)
 
-flowchart TB
-Client[Frontend / API Consumer]
+# Case Management System – Backend Services
 
-    Client -->|HTTP + JWT| Controller
+This repository contains the backend API for a lightweight Case Management System designed to demonstrate secure, cloud-native backend architecture using ASP.NET Core and Azure.
 
-    subgraph API Layer
-        Controller[Controllers]
-    end
+The system supports role-based access control, secure authentication, automated database migrations, and CI/CD deployment.
 
-    Controller --> Orchestrator
+---
 
-    subgraph Application Layer
-        Orchestrator[Orchestrators]
-        AuditService[Audit Service]
-        UserContext[User Context]
-    end
+## 🧱 Tech Stack
 
-    Orchestrator --> Repository
-    Orchestrator --> AuditService
-    AuditService --> Repository
+- ASP.NET Core (.NET 8)
+- Entity Framework Core
+- Azure SQL Database
+- Azure App Service (Windows)
+- GitHub Actions (CI/CD)
+- Azure Managed Identity
+- Swagger / OpenAPI
 
-    subgraph Data Access Layer
-        Repository[Repositories]
-    end
+---
 
-    Repository --> SQL[(SQL Server)]
+## 🎯 Core Features
+
+- Role-based access control (**Admin**, Manager, Officer, Reviewer)
+- Secure JWT authentication
+- Case creation and review workflows
+- Health monitoring endpoint
+- Swagger API documentation
+- Automatic database migrations in Production
+- No secrets stored in source control or CI/CD
+- Health Monitoring via /health
+- Swagger UI available at /swagger
+
+---
+
+## 🏗️ System Architecture
+
+- Role-based access control 
+- Secure JWT authentication
+- Case creation and review workflows
+- Health check endpoint
+- Automated database migrations in production
+- Zero secrets in source control or pipelines
+
+---
+
+## 🏗️ High-Level Architecture
+
+![System Architecture](docs/backend-architecture.png)
+
+
+**Flow:**
+1. User accesses the Angular UI
+2. UI calls the API using JWT authentication
+3. API accesses Azure SQL using Managed Identity
+
+---
+
+## 📦 Backend Architecture
+
+![Backend Layers](docs/backend-layers.png)
+
+
+### Layer Responsibilities
+
+**API Layer**
+- HTTP endpoints
+- Authentication & authorization
+- Request validation
+
+**Application Layer**
+- Business logic
+- Use cases
+- DTOs
+
+**Domain Layer**
+- Core entities
+- Business rules
+
+**Infrastructure Layer**
+- EF Core
+- Database access
+- External integrations
+
+---
+
+## 🏗️ Authentication & Authorization
+
+- JWT-based authentication
+- Role-based authorization using ASP.NET Core policies
+
+- Users authenticate using JWT tokens
+
+- Role-based authorization enforced at controller level
+- Example: Only create case by Admin, Manager, Officer
+
+```csharp
+[Authorize(Roles = "Admin, Manager, Officer")]
+public IActionResult CreateCase() { ... }
+```
+
+- Supported roles:
+
+```mermaid
+Admin – Full Admin access
+
+Manager - Manages Officers and access to all subordinates cases 
+
+Officer - Case Officer
+
+Reviewer – limited; only review permissions for Auditor
+```
+
+---
+
+## Flow chart of User Experience
+
+```mermaid
+User Login
+   │
+   ▼
+POST /auth/login; body = {username: "***", password: "***"}
+   │
+   ▼
+JWT Issued
+   │
+   ▼
+Angular stores token
+   │
+   ▼
+Authorization: Bearer <JWT>
+   │
+   ▼
+[Authorize(Roles = "Admin")]
+```
+
+**Operational Guidance**
 
 Migrations CLI:
 dotnet ef migrations add InitialCreate --project CaseManagement.Api --startup-project CaseManagement.Api
@@ -42,4 +152,5 @@ dotnet ef database update --project CaseManagement.Api --startup-project CaseMan
 Update entity/configuration classes → generate a new migration:
 
 dotnet ef migrations add AddNewFieldToClient
+
 dotnet ef database update
