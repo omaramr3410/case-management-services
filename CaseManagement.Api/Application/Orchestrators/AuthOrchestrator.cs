@@ -1,10 +1,11 @@
+using CaseManagement.Api.Domain.Entities;
 using CaseManagement.Api.DTOs;
 using CaseManagement.Api.Infrastructure.Data;
 using CaseManagement.Api.Infrastructure.Security;
 
 namespace CaseManagement.Api.Application.Orchestrators
 {
-    public class AuthOrchestrator
+    public class AuthOrchestrator : IAuthOrchestrator
     {
         private readonly AppDbContext _db;
         private readonly PasswordHasher _hasher;
@@ -20,18 +21,14 @@ namespace CaseManagement.Api.Application.Orchestrators
             _jwt = jwt;
         }
 
-        public LoginResponse Authenticate(LoginRequest request)
+        public User? Authenticate(LoginRequest request)
         {
             var user = _db.User.SingleOrDefault(u => u.Username == request.Username);
 
             if (user == null || !_hasher.Verify(request.Password, user.PasswordHash))
-                throw new UnauthorizedAccessException("Invalid credentials");
+                return null;
 
-            return new LoginResponse
-            {
-                Token = _jwt.GenerateToken(user),
-                Role = user.Role
-            };
+            return user;
         }
     }
 }

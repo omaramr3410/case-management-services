@@ -11,7 +11,7 @@ namespace CaseManagement.Api.Domain.Entities
         public required Guid Id { get; set; }
 
         /// <summary>
-        /// Field defining the assocaited User to this Officer, can have many Officers to one User
+        /// Field defining the associated User to this Officer, can have many Officers to one User
         /// </summary>
         public required Guid UserId { get; set; }
 

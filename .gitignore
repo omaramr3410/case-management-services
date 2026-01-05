@@ -367,3 +367,4 @@ FodyWeavers.xsd
 # Ignores bin and obj in every project folder, regardless of depth
 **/bin/
 **/obj/
+/.vscode

@@ -113,6 +113,7 @@ builder.Services.AddScoped<IAuditService, AuditService>();
 builder.Services.AddScoped<IMapper, ServiceMapper>();
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
+builder.Services.AddScoped<IAuthOrchestrator, AuthOrchestrator>();
 builder.Services.AddScoped<IClientRepository, ClientRepository>();
 builder.Services.AddScoped<IClientOrchestrator, ClientOrchestrator>();
 builder.Services.AddScoped<ICaseRepository, CaseRepository>();
@@ -150,6 +151,19 @@ builder.Services.AddApiVersioning(options =>
     options.ReportApiVersions = true;
 });
 
+//Adding CORS
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("CorsPolicy", policy =>
+    {
+        policy
+            .AllowAnyOrigin()      // OK for demo / interview
+            .AllowAnyMethod()      // Allows OPTIONS, POST, GET
+            .AllowAnyHeader();     // Allows Content-Type, Authorization
+    });
+});
+
+
 
 // --------------------
 // App
@@ -177,13 +191,14 @@ if (app.Environment.IsProduction())
     await db.Database.MigrateAsync();
     logger.LogInformation("EF Core migrations applied successfully.");
 }
-
-
+s
 app.UseExceptionHandler("/Error");
 
 app.MapHealthChecks("/health");
 
 app.UseHttpsRedirection();
+
+app.UseCors("CorsPolicy");
 
 app.UseAuthentication();
 app.UseAuthorization();

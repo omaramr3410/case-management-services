@@ -2,7 +2,9 @@
 
 
 ## Deployment Highlights
-Triggered on merge to main
+Pipeline triggered by: 
+- Successful merge on main 
+- Opened pull request onto main 
 
 4 Stages:
 - Lint
