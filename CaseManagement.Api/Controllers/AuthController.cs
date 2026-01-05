@@ -49,7 +49,7 @@ namespace CaseManagement.Api.Controllers
             await _audit.LogAsync(userContext, "Login", user.Id, "View");
             await _db.SaveChangesAsync();
 
-            return Ok( new LoginResponse
+            return Ok(new LoginResponse
             {
                 Token = token,
                 ExpiresMinutes = expiresMinutes,

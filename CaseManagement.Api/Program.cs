@@ -191,7 +191,7 @@ if (app.Environment.IsProduction())
     await db.Database.MigrateAsync();
     logger.LogInformation("EF Core migrations applied successfully.");
 }
-s
+
 app.UseExceptionHandler("/Error");
 
 app.MapHealthChecks("/health");
